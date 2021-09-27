@@ -16,10 +16,13 @@ const CourseInput = props => {
 
   const formSubmitHandler = event => {
     event.preventDefault();
+
     if(enteredValue.trim().length === 0){//trim() is a built in method that removes exvess white space at the beginning or the end
-      return;
+      setIsValid(false);
+      return; //return nothing to stop users from adding blank goal fields
     }
     props.onAddGoal(enteredValue);
+    setEnteredValue('')
   };
 
   return (
@@ -34,6 +37,7 @@ const CourseInput = props => {
             background: !isValid ? "salmon" : "transparent",
           }}
           type="text"
+          value={enteredValue}
           onChange={goalInputChangeHandler}
         />
       </div>
