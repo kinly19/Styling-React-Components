@@ -8,6 +8,9 @@ const CourseInput = props => {
   const [isValid, setIsValid] = useState(true) //use this state to style components conditionally
 
   const goalInputChangeHandler = event => {
+    if(event.target.value.trim().length > 0){ //when user starts typing change isValid back to true to change conditional inline styles
+      setIsValid(true);
+    }
     setEnteredValue(event.target.value);
   };
 
