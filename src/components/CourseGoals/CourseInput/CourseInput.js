@@ -27,10 +27,14 @@ const CourseInput = props => {
 
   return (
     <form onSubmit={formSubmitHandler}>
-      <div className="form-control">
+      {/* dynamically adding 'invalid' class (css class style) conditionally */}
+      <div className={`form-control ${!isValid ? 'invalid' : ''}`}> 
+        <label>Course Goal</label>
+        <input type="text" value={enteredValue} onChange={goalInputChangeHandler}/>
+        
         {/* using Conditional (ternary) operator to output a different style depending on isValid state*/}
         {/* inLine styles have the Highest priority!!! in CSS, will overwrite any other styles*/}
-        <label style={{ color: !isValid ? "red" : "black" }}>Course Goal</label>
+        {/* <label style={{ color: !isValid ? "red" : "black" }}>Course Goal</label>
         <input
           style={{
             borderColor: !isValid ? "red" : "black",
@@ -39,7 +43,7 @@ const CourseInput = props => {
           type="text"
           value={enteredValue}
           onChange={goalInputChangeHandler}
-        />
+        /> */}
       </div>
       <Button type="submit">Add Goal</Button>
     </form>
