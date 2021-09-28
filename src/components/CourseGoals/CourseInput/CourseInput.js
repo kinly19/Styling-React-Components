@@ -2,46 +2,49 @@ import React, { useState } from 'react';
 
 import Button from '../../UI/Button/Button';
 // import './CourseInput.css'; //these styles are not scoped to this component only... see button.js for more info 
-import styled from 'styled-components';
+import styles from './CourseInput.module.css' //import of css module
 
-//styled-component
+//styled-component=====================================================================
+// import styled from 'styled-components'; //import of styled-component
 //vscode-styled-components extension added 
-const FormControl = styled.div`
-  margin: 0.5rem 0;
 
-  label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 0.5rem;
-    color: ${(props) => (props.invalid ? "red" : "black")};
-  }
+// const FormControl = styled.div`
+//   margin: 0.5rem 0;
 
-  & input {
-    display: block;
-    width: 100%;
-    border: 1px solid #ccc;
-    border: 1px solid ${(props) => (props.invalid ? "red" : "#ccc")};
-    background: ${(props) => (props.invalid ? "#ffd7d7" : "transparent")};
-    font: inherit;
-    line-height: 1.5rem;
-    padding: 0 0.25rem;
-  }
+//   label {
+//     font-weight: bold;
+//     display: block;
+//     margin-bottom: 0.5rem;
+//     color: ${(props) => (props.invalid ? "red" : "black")};
+//   }
 
-  & input:focus {
-    outline: none;
-    background: #fad0ec;
-    border-color: #8b005d;
-  }
+//   & input {
+//     display: block;
+//     width: 100%;
+//     border: 1px solid #ccc;
+//     border: 1px solid ${(props) => (props.invalid ? "red" : "#ccc")};
+//     background: ${(props) => (props.invalid ? "#ffd7d7" : "transparent")};
+//     font: inherit;
+//     line-height: 1.5rem;
+//     padding: 0 0.25rem;
+//   }
 
-  // &.invalid input {
-  //   border-color: red;
-  //   background-color: rgb(218, 155, 155);
-  // }
+//   & input:focus {
+//     outline: none;
+//     background: #fad0ec;
+//     border-color: #8b005d;
+//   }
 
-  // &.invalid label {
-  //   color: red;
-  // }
-`;
+//   // &.invalid input {
+//   //   border-color: red;
+//   //   background-color: rgb(218, 155, 155);
+//   // }
+
+//   // &.invalid label {
+//   //   color: red;
+//   // }
+// `;
+//====================================================================================
 
 const CourseInput = props => {
   const [enteredValue, setEnteredValue] = useState('');
@@ -57,7 +60,7 @@ const CourseInput = props => {
   const formSubmitHandler = event => {
     event.preventDefault();
 
-    if(enteredValue.trim().length === 0){//trim() is a built in method that removes exvess white space at the beginning or the end
+    if(enteredValue.trim().length === 0){//trim() is a built in method that removes excess white space at the beginning or the end
       setIsValid(false);
       return; //return nothing to stop users from adding blank goal fields
     }
@@ -69,8 +72,14 @@ const CourseInput = props => {
     <form onSubmit={formSubmitHandler}>
       {/* dynamically adding 'invalid' (css class style) conditionally */}
       {/* <div className={`form-control ${!isValid ? 'invalid' : ''}`}>  */}
+
+      {/* using styled components */}
       {/* <FormControl className={!isValid && 'invalid'}>  same as above but using styled-components */}
-      <FormControl invalid={!isValid}> {/* styled component with dynamic props */}
+      {/* <FormControl invalid={!isValid}> styled component with dynamic props */}
+
+      {/* using css module */}
+      {/* if your class name has a - dash in the name wrap the class name inside of [] as a string*/}
+        <div className={`${styles ['form-control']} ${!isValid && styles.invalid}`} > {/* dynamic class styles */}
         <label>Course Goal</label>
         <input type="text" value={enteredValue} onChange={goalInputChangeHandler}/>
         
@@ -86,7 +95,8 @@ const CourseInput = props => {
           value={enteredValue}
           onChange={goalInputChangeHandler}
         /> */}
-        </FormControl>
+        </div>
+        {/* </FormControl> */}
       {/* </div> */}
       <Button type="submit">Add Goal</Button>
     </form>
