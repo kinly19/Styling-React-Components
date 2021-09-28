@@ -4,41 +4,41 @@ import CourseGoalList from './components/CourseGoals/CourseGoalList/CourseGoalLi
 import CourseInput from './components/CourseGoals/CourseInput/CourseInput';
 import './App.css';
 
-const App = () => {
+const App = () => { //default data
   const [courseGoals, setCourseGoals] = useState([
     { text: 'Do all exercises!', id: 'g1' },
     { text: 'Finish the course!', id: 'g2' }
   ]);
 
-  const addGoalHandler = enteredText => {
-    setCourseGoals(prevGoals => {
-      const updatedGoals = [...prevGoals];
-      updatedGoals.unshift({ text: enteredText, id: Math.random().toString() });
-      return updatedGoals;
+  const addGoalHandler = enteredText => { //add new goals handler
+    setCourseGoals(prevGoals => { //updater function 
+      const updatedGoals = [...prevGoals]; //spread prevState 
+      updatedGoals.unshift({ text: enteredText, id: Math.random().toString() }); //changing text and id properties values
+      return updatedGoals; //output value
     });
   };
 
-  const deleteItemHandler = goalId => {
+  const deleteItemHandler = goalId => { //delete goals handler
     setCourseGoals(prevGoals => {
       const updatedGoals = prevGoals.filter(goal => goal.id !== goalId);
       return updatedGoals;
     });
   };
 
-  let content = (
+  let content = ( //conditional content
     <p style={{ textAlign: 'center' }}>No goals found. Maybe add one?</p>
   );
 
   if (courseGoals.length > 0) {
     content = (
-      <CourseGoalList items={courseGoals} onDeleteItem={deleteItemHandler} />
+      <CourseGoalList items={courseGoals} onDeleteItem={deleteItemHandler} /> //courseGoal app.js state object
     );
   }
 
   return (
     <div>
       <section id="goal-form">
-        <CourseInput onAddGoal={addGoalHandler} />
+        <CourseInput onAddGoal={addGoalHandler} /> 
       </section>
       <section id="goals">
         {content}
